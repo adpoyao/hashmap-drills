@@ -44,3 +44,6 @@ class HashMap {
 
 HashMap.MAX_LOAD_RATIO = 0.9;
 HashMap.SIZE_RATIO = 3;
+
+let hm = new HashMap();
+console.log(HashMap._hashString('Hello World'));
