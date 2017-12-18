@@ -55,11 +55,20 @@ class HashMap {
         this.set(slot.key, slot.value);
       }
     }
-
   }
 
   _findSlot(key){
     //Hashing Happens Here;
+    const hash = HashMap._hashString(key);
+    const start = hash % this._capacity;
+
+    for (let i=start; i < start + this._capacity; i++){
+      const index = i % this._capacity;
+      const slot = this._slot[index];
+      if(slot === undefined || (slot.key === key && !slot.deleted)){
+        return index;
+      }
+    }
   }
 
   static _hashString(string){
@@ -75,5 +84,21 @@ class HashMap {
 HashMap.MAX_LOAD_RATIO = 0.9;
 HashMap.SIZE_RATIO = 3;
 
-let hm = new HashMap();
-console.log(HashMap._hashString('Hello World'));
+// let hm = new HashMap();
+// console.log(HashMap._hashString('Hello World'));
+
+let testHashMap = new HashMap();
+
+testHashMap.set('Hobbit', 'Bilbo');
+testHashMap.set('Hobbit', 'Frodo');
+testHashMap.set('Wizard', 'Gandolf');
+testHashMap.set('Human', 'Aragon');
+testHashMap.set('Elf', 'Legolas');
+testHashMap.set('Maiar', 'The Necromancer');
+testHashMap.set('Maiar', 'Sauron');
+testHashMap.set('RingBearer', 'Gollum');
+testHashMap.set('LadyOfLight', 'Galadriel');
+testHashMap.set('HalfElven', 'Arwen');
+testHashMap.set('Ent', 'Treebeard');
+
+console.log(testHashMap);
