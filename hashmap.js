@@ -19,7 +19,7 @@ class HashMap {
   set(key, value){
     const loadRatio = (this.length + this._deleted + 1)/this._capacity;
     if (loadRatio > HashMap.MAX_LOAD_RATIO) {
-      this._resize(this._capacity*HashMap.SIZE_RATIO)
+      this._resize(this._capacity * HashMap.SIZE_RATIO);
     }
 
     const index = this._findSlot(key);
@@ -27,12 +27,19 @@ class HashMap {
       key,
       value,
       deleted: false
-    })
+    });
     this.length++;
   }
 
   remove(key){
-
+    const index = this._findSlot(key);
+    const slot = this._slot[index];
+    if(slot === undefined){
+      throw new Error ('Not Found');  
+    }
+    slot.deleted = true;
+    this.length--;
+    this._deleted++;
   }
 
   _resize(size){
