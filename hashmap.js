@@ -17,7 +17,18 @@ class HashMap {
   }
 
   set(key, value){
+    const loadRatio = (this.length + this._deleted + 1)/this._capacity;
+    if (loadRatio > HashMap.MAX_LOAD_RATIO) {
+      this._resize(this._capacity*HashMap.SIZE_RATIO)
+    }
 
+    const index = this._findSlot(key);
+    this._slot[index] = ({
+      key,
+      value,
+      deleted: false
+    })
+    this.length++;
   }
 
   remove(key){
