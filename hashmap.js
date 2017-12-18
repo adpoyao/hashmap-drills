@@ -43,6 +43,18 @@ class HashMap {
   }
 
   _resize(size){
+    const oldSlots = this._slot;
+    this._capacity = size;
+
+    this.length = 0;
+    this._slot = [];
+    this._deleted = 0;
+
+    for (const slot of oldSlots) {
+      if (slot !== undefined && !slot.deleted) {
+        this.set(slot.key, slot.value);
+      }
+    }
 
   }
 
